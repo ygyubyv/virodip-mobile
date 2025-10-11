@@ -1,0 +1,7 @@
+{
+  "name": "parking-mobile-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
