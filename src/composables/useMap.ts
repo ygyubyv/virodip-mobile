@@ -1,0 +1,200 @@
+import type { Coordinates } from "@/types";
+import { onBeforeUnmount, onMounted, ref, useTemplateRef } from "vue";
+import type { Renderer } from "@googlemaps/markerclusterer";
+import { Geolocation } from "@capacitor/geolocation";
+
+interface Destination {
+  distance: string;
+  duration: string;
+  name: string;
+}
+
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
+export const useMap = () => {
+  const mapRef = useTemplateRef("mapRef");
+
+  const coordinates = ref<Coordinates | null>(null);
+  const navigationWatchId = ref<string | null>(null);
+  const directionsRenderer = ref(null);
+  const currentRoute = ref<Destination | null>(null);
+  const activeParking = ref<string | null>(null);
+
+  const customRenderer: Renderer = {
+    render: ({ count, position }) => {
+      // @ts-ignore
+      return new google.maps.Marker({
+        position,
+        icon: {
+          url: "/car-pin.svg",
+          // @ts-ignore
+          scaledSize: new google.maps.Size(48, 48),
+        },
+        label: {
+          text: String(count),
+          color: "#d61125",
+          fontSize: "16px",
+          fontWeight: "bold",
+        },
+      });
+    },
+  };
+
+  const toggleParkingInfo = (id: string) => {
+    activeParking.value = activeParking.value === id ? null : id;
+  };
+
+  const clearDestination = () => {
+    if (directionsRenderer.value) {
+      // @ts-ignore
+      directionsRenderer.value.setDirections({ routes: [] });
+    }
+
+    currentRoute.value = null;
+  };
+
+  const followMarker = (
+    startCoordinates: Coordinates,
+    targetCoordinates: Coordinates,
+    targetLabel: string
+  ) => {
+    try {
+      const request = {
+        origin: startCoordinates,
+        destination: targetCoordinates,
+        travelMode: "DRIVING",
+      };
+
+      const directionsService = new window.google.maps.DirectionsService();
+
+      directionsService.route(request, (response: any, status: any) => {
+        if (status === window.google.maps.DirectionsStatus.OK) {
+          if (!directionsRenderer.value) {
+            directionsRenderer.value =
+              new window.google.maps.DirectionsRenderer({
+                suppressMarkers: true,
+                polylineOptions: {
+                  strokeColor: "#1d4ed8",
+                  strokeWeight: 3,
+                },
+              });
+            // @ts-ignore
+            directionsRenderer.value.setMap(mapRef.value.map);
+          }
+          // @ts-ignore
+          directionsRenderer.value.setDirections(response);
+
+          const leg = response.routes[0].legs[0];
+          currentRoute.value = {
+            name: targetLabel,
+            distance: leg.distance.text,
+            duration: leg.duration.text,
+          };
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const getCoordinates = async () => {
+    if (Geolocation) {
+      navigationWatchId.value = await Geolocation.watchPosition(
+        {
+          enableHighAccuracy: true,
+          maximumAge: 0,
+        },
+        (pos, err) => {
+          if (err) {
+            // Toast
+            console.error(err);
+          }
+
+          if (!pos) {
+            // Toast
+            return;
+          }
+
+          coordinates.value = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude,
+          };
+        }
+      );
+    }
+  };
+
+  const stopNavigation = () => {
+    if (navigationWatchId.value !== null && navigator.geolocation) {
+      Geolocation.clearWatch({ id: navigationWatchId.value });
+    }
+  };
+
+  onMounted(() => {
+    getCoordinates();
+  });
+
+  onBeforeUnmount(() => {
+    stopNavigation();
+  });
+
+  const mapStyle = [
+    {
+      featureType: "all",
+      elementType: "labels.text",
+      stylers: [{ visibility: "on" }],
+    },
+    {
+      featureType: "all",
+      elementType: "labels.icon",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry",
+      stylers: [{ color: "#000000" }],
+    },
+    {
+      featureType: "road",
+      elementType: "geometry.stroke",
+      stylers: [{ color: "#ffffff" }, { weight: 1 }],
+    },
+    {
+      featureType: "landscape",
+      elementType: "geometry",
+      stylers: [{ color: "#ffffff" }],
+    },
+    {
+      featureType: "poi",
+      elementType: "geometry",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "water",
+      elementType: "geometry",
+      stylers: [{ visibility: "off" }],
+    },
+    {
+      featureType: "transit",
+      elementType: "geometry",
+      stylers: [{ visibility: "off" }],
+    },
+  ];
+
+  return {
+    mapRef,
+    mapStyle,
+    coordinates,
+    currentRoute,
+    activeParking,
+    directionsRenderer,
+    customRenderer,
+    toggleParkingInfo,
+    followMarker,
+    clearDestination,
+  };
+};
