@@ -1,6 +1,6 @@
 <template>
   <ion-app>
-    <Menu />
+    <AppMenu />
 
     <ion-router-outlet />
   </ion-app>
@@ -8,5 +8,5 @@
 
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from "@ionic/vue";
-import Menu from "./components/Menu.vue";
+import AppMenu from "./components/AppMenu.vue";
 </script>
