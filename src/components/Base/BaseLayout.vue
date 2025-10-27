@@ -22,6 +22,7 @@
 </template>
 
 <script setup lang="ts">
+import { StatusBar } from "@capacitor/status-bar";
 import {
   IonPage,
   IonHeader,
@@ -39,4 +40,6 @@ interface Props {
 }
 
 defineProps<Props>();
+
+StatusBar.setOverlaysWebView({ overlay: false });
 </script>

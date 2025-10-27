@@ -1,5 +1,5 @@
-// import type { IdTokenClaims } from "@azure/msal-browser";
+import type { IdTokenClaims } from "@azure/msal-browser";
 
-// export type IdTokenClaimsExtended = IdTokenClaims & {
-//   extension_Role: string;
-// };
+export type IdTokenClaimsExtended = IdTokenClaims & {
+  extension_Role: string;
+};

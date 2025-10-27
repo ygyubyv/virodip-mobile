@@ -14,14 +14,13 @@
           <ion-label>My Parkings</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button tab="account" href="/tabs/account">
+        <ion-tab-button
+          tab="account"
+          href="/tabs/account"
+          v-if="isAuthenticated"
+        >
           <ion-icon aria-hidden="true" :icon="personCircleOutline" />
           <ion-label>Account</ion-label>
-        </ion-tab-button>
-
-        <ion-tab-button tab="auth" href="/tabs/auth">
-          <ion-icon aria-hidden="true" :icon="logInOutline" />
-          <ion-label>Login</ion-label>
         </ion-tab-button>
       </ion-tab-bar>
     </ion-tabs>
@@ -38,10 +37,9 @@ import {
   IonPage,
   IonRouterOutlet,
 } from "@ionic/vue";
-import {
-  addOutline,
-  carOutline,
-  personCircleOutline,
-  logInOutline,
-} from "ionicons/icons";
+import { addOutline, carOutline, personCircleOutline } from "ionicons/icons";
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
+
+const { isAuthenticated } = storeToRefs(useAuthStore());
 </script>
