@@ -1,9 +1,9 @@
-import type { CapacitorConfig } from '@capacitor/cli';
+import type { CapacitorConfig } from "@capacitor/cli";
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'parking-mobile-app',
-  webDir: 'dist'
+  appId: "com.dopii.virodip",
+  appName: "Virodip",
+  webDir: "dist",
 };
 
 export default config;
