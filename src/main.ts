@@ -38,10 +38,12 @@ import "./theme/variables.css";
 
 import "./assets/styles/tailwind.css";
 
+import { i18n } from "./i18n";
+
 const app = createApp(App);
 const pinia = createPinia();
 
-app.use(IonicVue).use(router).use(pinia);
+app.use(IonicVue).use(router).use(pinia).use(i18n);
 
 router.isReady().then(() => {
   app.mount("#app");

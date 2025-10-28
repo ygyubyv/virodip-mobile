@@ -1,0 +1,544 @@
+{
+  "common": {
+    "project_name": "Virodip",
+    "full_name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "message": "Message",
+    "joined": "Joined",
+    "card_number": "Card Number",
+    "exp_month": "Expiration Month",
+    "exp_year": "Expiration Year",
+    "view_profile": "View profile",
+    "filter_by": "Filter By",
+    "station": "Station",
+    "distance": "Distance",
+    "current": "Current",
+    "car": "Car",
+    "month": "Month",
+    "year": "Year",
+    "number": "Number",
+    "brand": "Brand",
+    "model": "Model",
+    "color": "Color",
+    "android": "Android",
+    "ios": "iOS",
+    "account": "Account",
+    "account_data": "Account data",
+    "subscriptions": "Subscriptions",
+    "transactions": "Transactions",
+    "booking": "Booking",
+    "bookings": "Bookings",
+    "parking": "Parking",
+    "parkings": "Parkings"
+  },
+
+  "actions": {
+    "get": "Get",
+    "create": "Create",
+    "edit": "Edit",
+    "update": "Update",
+    "delete": "Delete",
+    "save": "Save"
+  },
+
+  "toasts": {
+    "success": {
+      "created": "{entity} successfully created",
+      "updated": "{entity} successfully updated",
+      "deleted": "{entity} successfully deleted",
+      "saved": "Changes saved successfully",
+      "generic": "Action completed successfully"
+    },
+
+    "error": {
+      "failed_action": "Failed to {action} {entity}",
+      "generic": "Something went wrong. Please try again.",
+      "not_found": "{entity} not found",
+
+      "auth": {
+        "auth_failed": "Failed to authorize. Please check your credentials and try again.",
+        "logout_failed": "Failed to log out. Please try again."
+      }
+    },
+
+    "warning": {
+      "unsaved": "You have unsaved changes",
+      "delete_confirm": "Are you sure you want to delete this {entity}?"
+    }
+  },
+
+  "buttons": {
+    "sign_in": "Sign in",
+    "sign_out": "Sign out",
+    "learn_more": "Learn More",
+    "contact_us": "Contact Us",
+    "show_on_map": "Show on map",
+    "add_payment_method": "Add Payment Method",
+    "add_car": "Add car",
+    "switch_to": "Switch to",
+    "save_changes": "Save changes",
+    "delete_account": "Delete account",
+    "book": "Book",
+    "follow": "Follow",
+    "confirm": "Confirm",
+    "submit": "Submit",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "send": "Send",
+    "clear": "Clear"
+  },
+
+  "forms": {
+    "validation": {
+      "required": "This field is required",
+      "invalid": "Enter a valid {entity}",
+      "length": "{entity} must be exactly {length} characters long",
+      "minLength": "{entity} must be at least {min} characters",
+      "maxLength": "{entity} must not exceed {max} characters",
+      "type_error": "{entity} is not {type} type",
+      "date_not_past": "The date cannot be earlier than today",
+      "start_not_past": "Start time cannot be earlier than now",
+      "end_after_start": "End time must be later than start time",
+      "expired": "{entity} cannot be expired"
+    },
+
+    "fields": {
+      "full_name": {
+        "label": "@:common.full_name",
+        "placeholder": "Enter your full name"
+      },
+
+      "email": {
+        "label": "@:common.email",
+        "placeholder": "Enter your email"
+      },
+
+      "phone": {
+        "label": "@:common.phone",
+        "placeholder": "+380687586410"
+      },
+
+      "message": {
+        "label": "@:common.message",
+        "placeholder": "Type your message"
+      },
+
+      "parking_name": {
+        "label": "Parking name",
+        "placeholder": "Enter parking name"
+      },
+
+      "date_time": {
+        "label": "Date & Time",
+        "placeholder": "Select date and time"
+      },
+
+      "start_time": {
+        "label": "Start Time",
+        "placeholder": "Select start time"
+      },
+
+      "end_time": {
+        "label": "End Time",
+        "placeholder": "Select end time"
+      },
+
+      "card_number": {
+        "label": "@:common.card_number",
+        "placeholder": "Enter card number"
+      },
+
+      "exp_month": {
+        "label": "@:common.exp_month",
+        "placeholder": "MM"
+      },
+
+      "exp_year": {
+        "label": "@:common.exp_year",
+        "placeholder": "YY"
+      },
+
+      "number": {
+        "label": "@:common.number",
+        "placeholder": "Enter license plate number"
+      },
+
+      "brand": {
+        "label": "@:common.brand",
+        "placeholder": "Enter brand"
+      },
+
+      "model": {
+        "label": "@:common.model",
+        "placeholder": "Enter model"
+      },
+
+      "year": {
+        "label": "@:common.year",
+        "placeholder": "Enter year"
+      },
+
+      "color": {
+        "label": "@:common.color",
+        "placeholder": "Enter color"
+      }
+    }
+  },
+
+  "selects": {
+    "all": "All",
+    "finished": "Finished",
+    "active": "Active",
+    "distance": "@:common.distance",
+    "available_spots": "Available spots",
+
+    "labels": {
+      "select_car": "Select your car",
+      "sort_by": "Sort by"
+    }
+  },
+
+  "modals": {
+    "book_parking": {
+      "title": "Book Parking"
+    },
+
+    "delete_card": {
+      "title": "Confirm Card Deletion",
+      "message": "Are you sure you want to permanently delete this payment method? This action cannot be undone.",
+      "submit_text": "Delete Card"
+    },
+
+    "add_card": {
+      "title": "Add New Payment Method",
+      "message": "Enter your card details below to add a new payment method.",
+      "submit_text": "Add Card"
+    },
+
+    "add_car": {
+      "title": "Add New Car",
+      "message": "Enter the details of your car below:",
+      "submit_text": "Add Car"
+    },
+
+    "delete_account": {
+      "title": "Delete Account",
+      "message": "Are you sure you want to permanently delete your account? All your data will be lost and this action cannot be undone.",
+      "submit_text": "Delete Account"
+    },
+
+    "delete_car": {
+      "title": "Confirm Car Deletion",
+      "message": "Are you sure you want to permanently delete this car? This action cannot be undone.",
+      "submit_text": "Delete Car"
+    },
+
+    "required_auth": {
+      "title": "Authorization Required",
+      "message": "To access this feature, you need to be logged in. Please click 'Login' to continue. Your account information will remain secure and private.",
+      "submit_text": "Login"
+    }
+  },
+
+  "tabs": {
+    "labels": {
+      "this_month": "This Month",
+      "this_quarter": "3 Months",
+      "this_year": "This Year"
+    }
+  },
+
+  "status": {
+    "active": "Active",
+    "completed": "Completed",
+    "successful": "Successful",
+    "failed": "Failed"
+  },
+
+  "metrics": {
+    "km": "km",
+    "m": "m"
+  },
+
+  "map": {
+    "my_location": "My location",
+    "location_access": "Location access is required to use this feature. Please enable location permissions in your browser settings."
+  },
+
+  "pricing": {
+    "plan": "Plan",
+    "price": "Price",
+    "date": "Date",
+    "description": "Description",
+    "amount": "Amount",
+    "start_date": "Start date",
+    "end_date": "End date",
+    "status": "Status",
+    "current_plan": "Current plan",
+    "no_plan": "You currently have no active plan.",
+    "expires": "Expires",
+    "per_mo": "/mo",
+
+    "tiers": {
+      "standard": {
+        "plan": "Standard",
+        "description": "Best for individual drivers",
+        "features": [
+          "Unlimited bookings",
+          "Priority support",
+          "Parking history"
+        ],
+        "ctaLabel": "Choose Plan"
+      },
+      "business": {
+        "plan": "Business",
+        "description": "For companies & fleets",
+        "features": [
+          "Team management",
+          "Multiple vehicle support",
+          "Reserved spots & reports"
+        ],
+        "badgeLabel": "Popular",
+        "ctaLabel": "Contact Sales"
+      }
+    }
+  },
+
+  "parkings": {
+    "address": "Address",
+    "available_spots": "Available spots",
+    "nearby_parkings": "Nearby Parkings"
+  },
+
+  "cars": {
+    "title": "Cars",
+    "no_cars": "No cars added",
+    "total_cars": "Total cars"
+  },
+
+  "routes": {
+    "main": "@:common.project_name",
+    "my_parkings": "My Parkings",
+    "reserve": "Reserve",
+    "about": "About",
+    "account": {
+      "default": "Account",
+      "profile": "Personal Info",
+      "payments": "Payments",
+      "statistics": "Statistics",
+      "settings": "Settings",
+      "security": "Security"
+    },
+    "contact": "Contact",
+    "faq": "Faq",
+    "help": "Help"
+  },
+
+  "views": {
+    "main": {
+      "project_title": "@:common.project_name",
+      "project_description": "The smart platform for online parking. Find, reserve, and pay for your parking spot effortlessly.",
+      "download_app": "Download the app for your device:",
+
+      "how_it_works": {
+        "title": "How {appName} Works",
+        "description": "Find, reserve, and pay for parking spots easily. {appName} makes parking simple, fast, and secure.",
+        "steps": [
+          {
+            "icon": "search",
+            "title": "Find Parking",
+            "description": "Locate the nearest available parking spots quickly and easily."
+          },
+          {
+            "icon": "calendar-check",
+            "title": "Reserve Spot",
+            "description": "Reserve your chosen parking space ahead of time to guarantee availability."
+          },
+          {
+            "icon": "credit-card",
+            "title": "Pay & Park",
+            "description": "Pay securely and enjoy seamless parking with no hassle."
+          }
+        ]
+      },
+
+      "payments": {
+        "title": "Ways to Book Your Parking",
+        "description": "Choose the option that suits you best — quick payment on-site, online booking, or a subscription for frequent drivers.",
+
+        "ways": [
+          {
+            "icon": "cash-register",
+            "title": "Pay at the Cashier",
+            "description": "Convenient option if you prefer paying directly on-site."
+          },
+          {
+            "icon": "laptop",
+            "title": "Online Booking",
+            "description": "Reserve your parking spot in advance with just a few clicks."
+          },
+          {
+            "icon": "calendar-check",
+            "title": "Subscription Plans",
+            "description": "Ideal for regular drivers and companies who want flexibility."
+          }
+        ]
+      },
+
+      "pricing": {
+        "title": "Pricing Plans",
+        "description": "Transparent pricing tailored for private parking users."
+      },
+
+      "contact": {
+        "title": "Have any questions?",
+        "description": "Our team is ready to help you. Reach out anytime!"
+      }
+    },
+
+    "contact": {
+      "title": "Have Questions?",
+      "description": "Fill out the form and we'll get back to you within 2 hours."
+    },
+
+    "parkings": {
+      "title": "My Parkings",
+      "not_found": "No bookings found"
+    },
+
+    "account": {
+      "profile": {
+        "title": "Personal Information"
+      },
+
+      "payments": {
+        "title": "Payments & Billing",
+        "payment_methods": "Payment Methods",
+        "no_payment_methods": "No payment methods added",
+        "recent_transactions": "Recent Transactions",
+
+        "security": {
+          "title": "Security",
+          "features": [
+            "We follow PCI DSS standards when handling card data",
+            "All information remains secure and uncompromised",
+            "All data is encrypted",
+            "Your card information will never be mishandled or sold"
+          ]
+        }
+      },
+
+      "statistics": {
+        "title": "Statistics",
+
+        "transactions": {
+          "title": "Transactions",
+          "description": "Transaction overview",
+          "total_spent": "Total spent",
+          "spending_trend": "Spending Trend",
+          "spent": "Spent"
+        }
+      },
+
+      "settings": {
+        "title": "Personal Information"
+      }
+    }
+  },
+
+  "seo": {
+    "main": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "Main",
+        "description": "Discover the nearest available parking spots in real-time, reserve your space, and enjoy a seamless parking experience.",
+        "keywords": "smart parking, parking app, reserve parking, real-time parking, parking spots, mobile parking, IoT parking",
+        "ogTitle": "Smart Parking — Find and Reserve Parking Spots Instantly",
+        "ogDescription": "Discover the nearest available parking spots in real-time, reserve your space, and enjoy a seamless parking experience."
+      }
+    },
+
+    "about": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "About",
+        "description": "Learn more about {appName}, the smart parking service that helps you find and reserve parking spots in real-time.",
+        "keywords": "smart parking, about, parking app, parking service, real-time parking, mobile parking",
+        "ogTitle": "About {appName} — Smart Parking Service",
+        "ogDescription": "Learn more about {appName}, the smart parking service that helps you find and reserve parking spots in real-time."
+      }
+    },
+
+    "contact": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "Contact",
+        "description": "Contact the {appName} team for support or inquiries. Fill out the form and we’ll get back to you within 2 hours.",
+        "keywords": "smart parking, contact, support, inquiries, parking app, parking service, real-time parking",
+        "ogTitle": "Contact {appName} — Smart Parking Service",
+        "ogDescription": "Contact the {appName} team for support or inquiries. Fill out the form and we’ll get back to you within 2 hours."
+      }
+    },
+
+    "faq": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "FAQ",
+        "description": "Find answers to frequently asked questions about {appName}, the smart parking service that helps you locate and reserve parking spots in real-time.",
+        "keywords": "smart parking, FAQ, frequently asked questions, parking app, parking service, real-time parking, mobile parking",
+        "ogTitle": "FAQ — {appName} Smart Parking Service",
+        "ogDescription": "Find answers to frequently asked questions about {appName}, the smart parking service that helps you locate and reserve parking spots in real-time."
+      }
+    },
+
+    "help": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "Help",
+        "description": "Get help and support for {appName}, the smart parking service that assists you in finding and reserving parking spots in real-time.",
+        "keywords": "smart parking, help, support, parking app, parking service, real-time parking, mobile parking",
+        "ogTitle": "Help — {appName} Smart Parking Service",
+        "ogDescription": "Get help and support for {appName}, the smart parking service that assists you in finding and reserving parking spots in real-time."
+      }
+    },
+
+    "book": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "Book Parking",
+        "description": "Book a parking spot in real-time with {appName} — fast, easy, and hassle-free.",
+        "keywords": "smart parking, booking, parking app, parking service, reserve parking spot, real-time parking",
+        "ogTitle": "Book Parking — {appName} Smart Parking",
+        "ogDescription": "Book a parking spot in real-time with {appName} — fast, easy, and hassle-free."
+      }
+    },
+
+    "parkings": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "Parkings",
+        "description": "Explore available parking spots with {appName}. Find, reserve, and navigate to parking spaces in real-time for a seamless parking experience.",
+        "keywords": "smart parking, parkings, parking spots, reserve parking, parking app, real-time parking, mobile parking",
+        "ogTitle": "Parkings — {appName} Smart Parking Service",
+        "ogDescription": "Explore available parking spots with {appName}. Find, reserve, and navigate to parking spaces in real-time for a seamless parking experience."
+      }
+    },
+
+    "account": {
+      "head": {
+        "title": "@:common.project_name",
+        "titleTemplate": "Account",
+        "description": "Manage your {appName} account, view statistics, update personal information, and configure security settings.",
+        "keywords": "{appName} account, manage account, parking profile, user settings, account security, parking statistics",
+        "ogTitle": "Account — {appName} Smart Parking Service",
+        "ogDescription": "Manage your {appName} account, view statistics, update personal information, and configure security settings."
+      }
+    }
+  },
+
+  "footer": {
+    "description": "Safe and easy parking management.",
+    "copyright": "© {year} {appName}. All rights reserved."
+  }
+}

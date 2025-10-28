@@ -12,6 +12,7 @@ export const useAuthStore = defineStore("auth", () => {
 
   const isAuthenticated = ref(false);
   const idTokenClaims = ref<IdTokenClaimsExtended | null>(null);
+  const authModalIsVisible = ref(false);
   const bearerToken = ref("");
 
   const initAuth = async () => {
@@ -58,6 +59,7 @@ export const useAuthStore = defineStore("auth", () => {
     isAuthenticated,
     idTokenClaims,
     bearerToken,
+    authModalIsVisible,
     login,
     logout,
     initAuth,

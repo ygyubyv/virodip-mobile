@@ -7,6 +7,11 @@ export const azureConfig = {
   redirectUri: import.meta.env.VITE_AZURE_REDIRECT_URI,
 };
 
+export const localeConfig = {
+  defaultLocale: import.meta.env.VITE_DEFAULT_LOCALE!,
+  fallbackLocale: import.meta.env.VITE_FALLBACK_LOCALE!,
+};
+
 export const APP_URL = import.meta.env.VITE_APP_URL;
 
 export const API_URL = import.meta.env.VITE_API_URL;
