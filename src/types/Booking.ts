@@ -10,3 +10,11 @@ export interface Booking {
   car: Car;
   parking: Parking;
 }
+
+export interface BookForm {
+  userId: string;
+  parkingId: string;
+  carId: string;
+  start: string;
+  end: string;
+}

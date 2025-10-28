@@ -1,11 +1,19 @@
 <template>
   <base-layout page-title="Book Parking">
+    <AddCarModal
+      v-if="addCarModalIsVisible"
+      :is-open="addCarModalIsVisible"
+      @close="addCarModalIsVisible = false"
+    />
+
     <BookModal
-      :user="DEFAULT_USER"
+      :user="user!"
+      v-if="bookModalIsVisible"
       :is-open="bookModalIsVisible"
       :parking="bookedParking!"
-      @confirm="handleSubmit"
-      @cancel="bookModalIsVisible = false"
+      @submit="handleSubmit"
+      @add-car="handleAddCar"
+      @close="bookModalIsVisible = false"
     />
 
     <div
@@ -60,13 +68,11 @@
 import BaseLayout from "@/components/Base/BaseLayout.vue";
 import Map from "@/components/Map.vue";
 import { useMap } from "@/composables/useMap";
-import { parkings } from "@/constants";
 import { calculateDistance } from "@/utils";
-import { computed, ref } from "vue";
-import { DEFAULT_USER } from "@/constants";
+import { computed, onMounted, ref } from "vue";
 import BookModal from "../components/BookModal.vue";
 import ParkingCard from "../components/ParkingCard.vue";
-
+import AddCarModal from "@/components/Modals/AddCarModal.vue";
 import {
   IonCard,
   IonCardContent,
@@ -78,20 +84,39 @@ import {
   IonSelectOption,
   IonTitle,
 } from "@ionic/vue";
-import { Parking } from "@/types";
+import { BookForm, Parking } from "@/types";
+import { useAuthStore } from "@/stores/auth";
+import { storeToRefs } from "pinia";
+import { useUserStore } from "@/stores/user";
+import { useParkingsStore } from "@/stores/parkings";
+import { createBooking } from "@/services/bookings";
 
 const { coordinates } = useMap();
 
-const selectedOption = ref<"distance" | "spots">("distance");
+const parkingsStore = useParkingsStore();
+const { setParkings } = parkingsStore;
+const { parkings } = storeToRefs(parkingsStore);
+
+const authStore = useAuthStore();
+const { isAuthenticated, authModalIsVisible } = storeToRefs(authStore);
+
+const userStore = useUserStore();
+const { setUserCars } = userStore;
+const { user } = storeToRefs(userStore);
+
+// Modals
+const addCarModalIsVisible = ref(false);
 const bookModalIsVisible = ref(false);
+
+const selectedOption = ref<"distance" | "spots">("distance");
 const bookedParking = ref<Parking | null>(null);
 
 const filteredParkings = computed(() => {
-  if (!coordinates.value) return parkings;
+  if (!coordinates.value) return parkings.value;
 
   switch (selectedOption.value) {
     case "distance":
-      return parkings
+      return parkings.value
         .slice()
         .sort(
           (a, b) =>
@@ -110,27 +135,46 @@ const filteredParkings = computed(() => {
         );
 
     case "spots":
-      return parkings
+      return parkings.value
         .slice()
         .sort((a, b) => b.availableSpots - a.availableSpots);
 
     default:
-      return parkings;
+      return parkings.value;
   }
 });
 
-const handleBook = (id: string) => {
-  // if (!isAuthenticated.value || !user.value) {
-  //   authModalIsVisible.value = true;
-  //   return;
-  // }
+const handleAddCar = () => {
+  bookModalIsVisible.value = false;
+  addCarModalIsVisible.value = true;
+};
 
-  const targetParking = parkings.find((parking) => parking.id === id)!;
+const handleBook = async (id: string) => {
+  if (!isAuthenticated.value || !user.value) {
+    authModalIsVisible.value = true;
+    return;
+  }
+
+  await setUserCars();
+
+  const targetParking = parkings.value.find((parking) => parking.id === id)!;
   bookedParking.value = targetParking;
   bookModalIsVisible.value = true;
 };
 
-const handleSubmit = (form: any) => {
-  console.log(form);
+const handleSubmit = async (form: BookForm) => {
+  try {
+    const status = await createBooking(form);
+
+    if (status !== 201) {
+      throw new Error("Failed create car");
+    }
+  } catch (error) {
+    console.error(error);
+  }
 };
+
+onMounted(() => {
+  setParkings();
+});
 </script>
