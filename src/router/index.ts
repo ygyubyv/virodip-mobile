@@ -1,9 +1,13 @@
 import { createRouter, createWebHistory } from "@ionic/vue-router";
 import { RouteRecordRaw } from "vue-router";
 import AppTabs from "@/components/AppTabs.vue";
-import BookView from "@/containers/book/views/BookView.vue";
-import ParkingsView from "@/containers/parkings/views/ParkingsView.vue";
-import AccountView from "@/containers/account/views/AccountView.vue";
+
+import account from "@/containers/account/routes/index";
+import book from "@/containers/book/routes/index";
+import parkings from "@/containers/parkings/routes/index";
+import { useAuthStore } from "@/stores/auth";
+import { useUserStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,18 +22,9 @@ const routes: Array<RouteRecordRaw> = [
         path: "",
         redirect: "/tabs/book",
       },
-      {
-        path: "book",
-        component: BookView,
-      },
-      {
-        path: "parkings",
-        component: ParkingsView,
-      },
-      {
-        path: "account",
-        component: AccountView,
-      },
+      ...book,
+      ...parkings,
+      ...account,
     ],
   },
 ];
@@ -37,6 +32,35 @@ const routes: Array<RouteRecordRaw> = [
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes,
+});
+
+router.beforeEach(async (to, _, next) => {
+  try {
+    const authStore = useAuthStore();
+    const { initAuth } = authStore;
+    const { isAuthenticated, isInitialized, authModalIsVisible } =
+      storeToRefs(authStore);
+    const { user } = storeToRefs(useUserStore());
+
+    if (to.meta.requiresAuth) {
+      if (!isAuthenticated.value) {
+        await initAuth();
+      }
+
+      if (isInitialized.value && !user.value) {
+        authModalIsVisible.value = true;
+        return next({ name: "main" });
+      }
+    }
+
+    if (!isInitialized.value) {
+      initAuth();
+    }
+
+    next();
+  } catch (error) {
+    console.error(error);
+  }
 });
 
 export default router;

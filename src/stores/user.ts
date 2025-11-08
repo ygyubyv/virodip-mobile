@@ -25,22 +25,24 @@ export const useUserStore = defineStore("user", () => {
       }
 
       user.value = response;
-
-      console.log(response);
     } catch (error) {
       console.error(error);
     }
   };
 
   const setUserCars = async (forceRefresh = false) => {
-    if (user.value!.cars?.length && !forceRefresh) {
+    if (user.value?.cars?.length && !forceRefresh) {
       return;
     }
 
     try {
-      const response = await getUserCars(user.value!.id);
+      if (!user.value?.id) {
+        return;
+      }
 
-      user.value!.cars = response;
+      const response = await getUserCars(user.value.id);
+
+      user.value.cars = response;
     } catch (error) {
       console.error(error);
     }

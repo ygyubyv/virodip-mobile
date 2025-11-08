@@ -11,22 +11,30 @@ export const useAuthStore = defineStore("auth", () => {
   const { setUser } = useUserStore();
 
   const isAuthenticated = ref(false);
+  const isInitialized = ref(false);
   const idTokenClaims = ref<IdTokenClaimsExtended | null>(null);
   const authModalIsVisible = ref(false);
   const bearerToken = ref("");
 
   const initAuth = async () => {
-    const access_token = await Preferences.get({ key: "access_token" });
+    try {
+      const access_token = await Preferences.get({ key: "access_token" });
 
-    if (!access_token.value) {
-      return;
+      if (access_token.value) {
+        bearerToken.value = access_token.value;
+        idTokenClaims.value = parseJwt(access_token.value);
+        isAuthenticated.value = true;
+
+        await setUser(idTokenClaims.value!.sub!);
+      } else {
+        isAuthenticated.value = false;
+      }
+    } catch (err) {
+      console.error("Auth initialization error:", err);
+      isAuthenticated.value = false;
+    } finally {
+      isInitialized.value = true;
     }
-
-    bearerToken.value = access_token.value;
-    idTokenClaims.value = parseJwt(access_token.value);
-    isAuthenticated.value = !!access_token.value;
-
-    await setUser(idTokenClaims.value!.sub!);
   };
 
   const login = async () => {
@@ -60,6 +68,7 @@ export const useAuthStore = defineStore("auth", () => {
     idTokenClaims,
     bearerToken,
     authModalIsVisible,
+    isInitialized,
     login,
     logout,
     initAuth,

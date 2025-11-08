@@ -2,7 +2,7 @@ import BookView from "../views/BookView.vue";
 
 export default [
   {
-    path: "/book",
+    path: "/tabs/book",
     name: "book",
     component: BookView,
   },

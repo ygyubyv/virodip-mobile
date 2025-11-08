@@ -7,18 +7,18 @@ export type Role = "user" | "guardian" | "admin";
 
 export type UserSummary = Pick<
   User,
-  "id" | "name" | "email" | "phone" | "avatarUrl" | "createdAt"
+  "id" | "name" | "email" | "phoneNumber" | "avatarUrl" | "createdAt"
 >;
 
 export type User = {
   id: string;
   name: string;
   email: string;
-  phone: string | null;
+  phoneNumber: string | null;
   avatarUrl: string | null;
   cars: Car[];
   roles: Role[];
-  subscription: UserSubscription;
+  subscription: UserSubscription | null;
   transactions: Transaction[];
   createdAt: string;
   bookings: Booking[];

@@ -1,5 +1,7 @@
 import type { Parking, Transaction, User } from "@/types";
 
+export const DEFAULT_AVATAR = "/src/assets/images/no-avatar-black.svg";
+
 export const parkings: Parking[] = [
   {
     id: "1",
@@ -409,7 +411,7 @@ export const DEFAULT_USER: User = {
   id: "1",
   name: "Vasyl Kozubovych",
   email: "vasyl@example.com",
-  phone: "+380687586410",
+  phoneNumber: "+380687586410",
   avatarUrl: null,
   createdAt: "2024-06-18T12:34:56Z",
   roles: ["user", "guardian", "admin"],

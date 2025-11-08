@@ -7,12 +7,12 @@ import StatsView from "../views/StatsView.vue";
 
 export default [
   {
-    path: "/account",
+    path: "/tabs/account",
     component: AccountView,
     children: [
       {
         path: "",
-        redirect: "/account/profile",
+        redirect: "/tabs/account/profile",
         meta: {
           requiresAuth: true,
         },

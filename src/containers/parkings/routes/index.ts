@@ -2,7 +2,7 @@ import ParkingsView from "../views/ParkingsView.vue";
 
 export default [
   {
-    path: "/parkings",
+    path: "/tabs/parkings",
     name: "parkings",
     component: ParkingsView,
   },
