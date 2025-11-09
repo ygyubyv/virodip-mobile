@@ -24,19 +24,33 @@ const { authModalIsVisible } = storeToRefs(authStore);
 </script>
 
 <style scoped>
-.custom-alert {
-  --background: #2a2a2a;
-  --border-radius: 12px;
-  --box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+:deep(.custom-alert::part(alert)) {
+  background: var(--alert-bg) !important;
+  color: var(--alert-text) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3) !important;
+  opacity: 1 !important;
 }
 
-.alert-cancel {
-  --background: #ef4444;
-  --color: white;
+:deep(.custom-alert button.alert-button.role-cancel) {
+  background: #ef4444 !important;
+  color: #fff !important;
 }
 
-.alert-submit {
-  --background: #3b82f6;
-  --color: white;
+:deep(.custom-alert button.alert-button:not(.role-cancel)) {
+  background: #3b82f6 !important;
+  color: #fff !important;
+}
+
+:root {
+  --alert-bg: #ffffff;
+  --alert-text: #1a1a1a;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --alert-bg: #2a2a2a;
+    --alert-text: #f5f5f5;
+  }
 }
 </style>

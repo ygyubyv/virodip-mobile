@@ -6,11 +6,11 @@
     :breakpoints="[0, 0.25, 0.45, 0.5, 1]"
   >
     <ion-header>
-      <ion-toolbar>
+      <ion-toolbar class="toolbar-bg">
         <ion-buttons slot="start">
           <ion-button color="danger" @click="emit('close')">Cancel</ion-button>
         </ion-buttons>
-        <ion-title class="ion-text-center text-white">Book Parking</ion-title>
+        <ion-title class="ion-text-center title-color">Book Parking</ion-title>
         <ion-buttons slot="end">
           <ion-button
             color="primary"
@@ -24,13 +24,15 @@
       </ion-toolbar>
     </ion-header>
 
-    <ion-content class="ion-padding bg-[#121212]">
+    <ion-content class="ion-padding content-bg">
       <div class="space-y-4">
-        <h2 class="text-lg font-semibold text-white">Parking Info</h2>
+        <h2 class="text-lg font-semibold title-color">Parking Info</h2>
 
         <div class="flex justify-between text-sm">
-          <p class="font-medium text-gray-200">Station: {{ parking.name }}</p>
-          <p class="text-gray-400">
+          <p class="font-medium text-color-step-600">
+            Station: {{ parking.name }}
+          </p>
+          <p class="text-color-step-400">
             Available Spots: {{ parking.availableSpots }}
           </p>
         </div>
@@ -38,44 +40,42 @@
         <!-- Start -->
         <ion-item
           lines="none"
-          class="rounded-xl bg-[#1e1e1e]"
+          class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.start }"
         >
-          <ion-label position="stacked" class="text-white">Start</ion-label>
+          <ion-label position="stacked" class="text-color">Start</ion-label>
           <ion-input
             v-model="start"
             v-bind="startAttrs"
             type="datetime-local"
-            class="text-gray-300"
+            class="text-input-color"
           />
         </ion-item>
         <p v-if="errors.start" class="text-red-500 text-sm mt-1 ml-1">
           {{ errors.start }}
         </p>
-        <!-- !Start -->
 
         <!-- End -->
         <ion-item
           lines="none"
-          class="rounded-xl bg-[#1e1e1e]"
+          class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.end }"
         >
-          <ion-label position="stacked" class="text-white">End</ion-label>
+          <ion-label position="stacked" class="text-color">End</ion-label>
           <ion-input
             v-model="end"
             v-bind="endAttrs"
             type="datetime-local"
-            class="text-gray-300"
+            class="text-input-color"
           />
         </ion-item>
         <p v-if="errors.end" class="text-red-500 text-sm mt-1 ml-1">
           {{ errors.end }}
         </p>
-        <!-- !End -->
 
         <!-- Car -->
-        <ion-item lines="none" class="rounded-xl bg-[#1e1e1e]">
-          <ion-label position="stacked" class="text-white"
+        <ion-item lines="none" class="rounded-xl input-bg">
+          <ion-label position="stacked" class="text-color"
             >Select Car</ion-label
           >
           <ion-select
@@ -93,18 +93,15 @@
             </ion-select-option>
           </ion-select>
         </ion-item>
-        <!-- !Car -->
 
         <!-- Add Car -->
         <div
-          class="flex items-center gap-1 cursor-pointer hover:underline text-sm text-white justify-end"
+          class="flex items-center gap-1 cursor-pointer hover:underline text-sm add-car-text justify-end"
           @click="emit('addCar')"
         >
           <ion-icon :icon="addCircleOutline" />
-
           <span>Add Car</span>
         </div>
-        <!-- !Add Car -->
       </div>
     </ion-content>
   </ion-modal>
@@ -159,7 +156,7 @@ const carOptions = props.user.cars.map((car) => ({
   value: car,
 }));
 
-const selectedCarId = ref(carOptions[0].value.id);
+const selectedCarId = ref(carOptions[0]?.value.id ?? null);
 
 const onSubmit = handleSubmit((values) => {
   emit("submit", {
@@ -169,40 +166,87 @@ const onSubmit = handleSubmit((values) => {
     end: end.value,
     carId: selectedCarId.value,
   });
-
   emit("close");
   resetForm();
 });
 </script>
 
 <style scoped>
-ion-input {
-  color: #b3b3b3;
+ion-modal::part(content) {
+  background-color: var(--modal-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-ion-label {
-  font-weight: 500;
-  font-size: 0.9rem;
+.toolbar-bg {
+  background-color: var(--modal-toolbar-bg);
+}
+.title-color {
+  color: var(--modal-title-color);
 }
 
-ion-item {
-  --highlight-background: transparent;
-  transition: border 0.2s;
+.content-bg {
+  background-color: var(--modal-bg);
+}
+.text-color {
+  color: var(--modal-text-color);
+}
+.text-color-step-600 {
+  color: var(--modal-text-color-step-600);
+}
+.text-color-step-400 {
+  color: var(--modal-text-color-step-400);
+}
+
+.text-input-color {
+  color: var(--modal-input-text-color);
+}
+
+.add-car-text {
+  color: var(--modal-text-color);
 }
 
 .ion-invalid {
   border: 1px solid #ef4444;
 }
 
-ion-modal::part(content) {
-  background-color: #121212;
-}
-
 .custom-select::part(text) {
-  color: #b3b3b3;
+  color: var(--modal-input-text-color);
+}
+.custom-select::part(icon) {
+  color: var(--modal-input-text-color);
 }
 
-.custom-select::part(icon) {
-  color: white;
+.input-bg {
+  background-color: var(--modal-input-bg);
+  border-radius: 0.75rem;
+  border: 1px solid var(--modal-input-border, transparent);
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+:root {
+  --modal-bg: var(--ion-color-light);
+  --modal-toolbar-bg: var(--ion-color-light);
+  --modal-input-bg: var(--ion-color-step-100);
+  --modal-input-border: #e5e7eb;
+  --modal-text-color: var(--ion-color-dark);
+  --modal-text-color-step-600: var(--ion-color-medium);
+  --modal-text-color-step-400: var(--ion-color-step-400);
+  --modal-input-text-color: var(--ion-color-dark);
+  --modal-title-color: var(--ion-color-dark);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --modal-bg: var(--ion-color-dark);
+    --modal-toolbar-bg: var(--ion-color-dark);
+    --modal-input-bg: #1e1e1e;
+    --modal-input-border: #2e2e2e;
+    --modal-text-color: var(--ion-color-light);
+    --modal-text-color-step-600: var(--ion-color-step-400);
+    --modal-text-color-step-400: var(--ion-color-step-200);
+    --modal-input-text-color: var(--ion-color-light);
+    --modal-title-color: var(--ion-color-light);
+  }
 }
 </style>

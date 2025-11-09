@@ -31,6 +31,7 @@ import {
   IonSegmentButton,
   IonIcon,
   IonRouterOutlet,
+  IonLabel,
 } from "@ionic/vue";
 import {
   personCircleOutline,
@@ -93,8 +94,8 @@ const onSegmentChange = (event: any) => {
   position: sticky;
   top: 0;
   z-index: 5;
-  background: var(--ion-background-color, #121212);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background-color: var(--ion-background-color, #ffffff);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 ion-segment {
@@ -106,23 +107,40 @@ ion-segment {
 .segment-button {
   min-width: 100px;
   flex: 1 1 auto;
-  --color: rgba(255, 255, 255, 0.6);
-  --color-checked: var(--ion-color-primary, #3a8fff);
-  --indicator-color: var(--ion-color-primary, #3a8fff);
+  --color: rgba(0, 0, 0, 0.7);
+  --color-checked: #111111;
+  --indicator-color: #111111;
   --indicator-height: 2px;
   text-transform: none;
-  font-weight: 500;
-  font-size: 13px;
+  font-weight: 600;
+  font-size: 14px;
   justify-content: center;
 }
 
 .segment-button ion-icon {
   font-size: 18px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .segment-content {
   padding: 16px;
-  color: #fff;
+  color: #111111;
+}
+
+@media (prefers-color-scheme: dark) {
+  .segment-container {
+    background-color: #121212;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .segment-button {
+    --color: rgba(255, 255, 255, 0.6);
+    --color-checked: #ffffff;
+    --indicator-color: #ffffff;
+  }
+
+  .segment-content {
+    color: #ffffff;
+  }
 }
 </style>
