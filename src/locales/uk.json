@@ -416,6 +416,7 @@
         "payment_methods": "Методи оплати",
         "no_payment_methods": "Методи оплати не додані",
         "recent_transactions": "Останні транзакції",
+        "tiers_list": "Список тарифів",
 
         "security": {
           "title": "Безпека",

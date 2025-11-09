@@ -417,6 +417,7 @@
         "payment_methods": "Payment Methods",
         "no_payment_methods": "No payment methods added",
         "recent_transactions": "Recent Transactions",
+        "tiers_list": "Tiers List",
 
         "security": {
           "title": "Security",
