@@ -5,6 +5,8 @@ import AppTabs from "@/components/AppTabs.vue";
 import account from "@/containers/account/routes/index";
 import book from "@/containers/book/routes/index";
 import parkings from "@/containers/parkings/routes/index";
+import contact from "@/containers/contact/routes/index";
+
 import { useAuthStore } from "@/stores/auth";
 import { useUserStore } from "@/stores/user";
 import { storeToRefs } from "pinia";
@@ -27,6 +29,7 @@ const routes: Array<RouteRecordRaw> = [
       ...account,
     ],
   },
+  ...contact,
 ];
 
 const router = createRouter({
