@@ -1,6 +1,6 @@
 <template>
   <ion-page>
-    <ion-content class="ion-padding">
+    <ion-content>
       <ion-card class="ion-margin-bottom">
         <ion-card-content class="profile-header">
           <div class="profile-info-wrapper">

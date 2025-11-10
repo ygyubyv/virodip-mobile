@@ -28,6 +28,10 @@ interface GetUserCarsResponse {
   cars: Car[];
 }
 
+interface GetUserBookingsResponse {
+  bookings: Booking[];
+}
+
 interface DeleteUserResponse {
   message: string;
   status: string;
@@ -122,11 +126,10 @@ export const getUserBookings = async (id: string) => {
     throw new Error("Failed to fetch bookings");
   }
 
-  const bookings = (await response.json()) as Booking[];
+  const data = (await response.json()) as GetUserBookingsResponse;
 
-  return bookings;
+  return data.bookings;
 };
-
 // Post
 
 export const createUserCar = async (id: string, car: CreateCar) => {
