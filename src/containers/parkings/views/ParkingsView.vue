@@ -44,7 +44,7 @@
                   v-else
                   class="flex items-center justify-center h-[300px] bg-gray-50 text-gray-500 rounded-lg text-center"
                 >
-                  {{ $t("views.parkings.map_placeholder") }}
+                  Access
                 </div>
               </div>
 

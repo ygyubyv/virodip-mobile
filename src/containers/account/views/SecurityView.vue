@@ -1,9 +1,13 @@
 <template>
   <ion-page>
-    <ion-content> Security </ion-content>
+    <ion-content>
+      <ion-label style="display: block" class="ion-text-center ion-margin-top">
+        Currently empty
+      </ion-label>
+    </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage } from "@ionic/vue";
+import { IonContent, IonPage, IonLabel } from "@ionic/vue";
 </script>
