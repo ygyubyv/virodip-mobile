@@ -7,15 +7,11 @@ import { parseJwt } from "@/utils/auth/decodeJwt";
 import { IdTokenClaimsExtended } from "@/types";
 import { useUserStore } from "./user";
 import { useRouter } from "vue-router";
-import { useI18n } from "vue-i18n";
-import { useNotification } from "@/composables/useNotification";
 
 export const useAuthStore = defineStore("auth", () => {
   const { setUser } = useUserStore();
 
   const router = useRouter();
-  const { t } = useI18n();
-  const { showNotification } = useNotification();
 
   const isAuthenticated = ref(false);
   const isInitialized = ref(false);
@@ -38,7 +34,7 @@ export const useAuthStore = defineStore("auth", () => {
       }
     } catch (err) {
       console.error("Auth initialization error:", err);
-      await logout();
+      isAuthenticated.value = false;
     } finally {
       isInitialized.value = true;
     }
@@ -55,27 +51,21 @@ export const useAuthStore = defineStore("auth", () => {
 
       await initAuth();
     } catch (err) {
-      showNotification("error", t("toasts.error.auth.auth_failed"));
       console.error("OAuth2 login error", err);
     }
   };
 
   const logout = async () => {
-    try {
-      const access_token = await Preferences.get({ key: "access_token" });
+    const access_token = await Preferences.get({ key: "access_token" });
 
-      if (access_token.value) {
-        await GenericOAuth2.logout(oauth2Config, access_token.value);
-      }
-
-      await Preferences.remove({ key: "access_token" });
-      isAuthenticated.value = false;
-
-      router.replace("/");
-    } catch (error) {
-      showNotification("error", t("toasts.error.auth.logout_failed"));
-      console.error("OAuth2 logout error", error);
+    if (access_token.value) {
+      await GenericOAuth2.logout(oauth2Config, access_token.value);
     }
+
+    await Preferences.remove({ key: "access_token" });
+    isAuthenticated.value = false;
+
+    router.replace("/");
   };
 
   return {
