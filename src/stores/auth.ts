@@ -30,11 +30,11 @@ export const useAuthStore = defineStore("auth", () => {
 
         await setUser(idTokenClaims.value!.sub!);
       } else {
-        isAuthenticated.value = false;
+        await logout();
       }
     } catch (err) {
       console.error("Auth initialization error:", err);
-      isAuthenticated.value = false;
+      await logout();
     } finally {
       isInitialized.value = true;
     }
