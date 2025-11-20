@@ -186,7 +186,7 @@
           expand="full"
           color="medium"
           v-if="hasChanges"
-          @click="onCancel"
+          @click="clearState"
         >
           <ion-icon slot="start" :icon="closeOutline" />
           {{ $t("buttons.cancel") }}
@@ -232,6 +232,9 @@ import { useValidateUser } from "../composables/useValidateUser";
 import { useUserStore } from "@/stores/user";
 import { useAuthStore } from "@/stores/auth";
 
+import { useNotification } from "@/composables/useNotification";
+import { useI18n } from "vue-i18n";
+
 import {
   updateUser,
   deleteUser,
@@ -252,6 +255,9 @@ import {
 import { DEFAULT_AVATAR } from "@/constants";
 import type { Car } from "@/types";
 import { uploadBlob } from "@/utils";
+
+const { t } = useI18n();
+const { showNotification } = useNotification();
 
 const userStore = useUserStore();
 const { user } = storeToRefs(userStore);
@@ -298,8 +304,19 @@ const handleUpdateCar = async (updatedCar: Car) => {
     await updateUserCar(user.value!.id, updatedCar.id, updatedCar);
     setUserCars(true);
     editCarModalIsVisible.value = false;
+
+    showNotification(
+      "success",
+      t("toasts.success.updated", { entity: t("common.car") })
+    );
   } catch (e) {
-    console.error(e);
+    showNotification(
+      "error",
+      t("toasts.error.failed_action", {
+        action: t("actions.update"),
+        entity: t("common.car"),
+      })
+    );
   }
 };
 
@@ -308,8 +325,19 @@ const confirmDeleteCar = async () => {
     await deleteUserCar(user.value!.id, deleteCarId.value!);
     setUserCars(true);
     deleteCarModalIsVisible.value = false;
+
+    showNotification(
+      "success",
+      t("toasts.success.deleted", { entity: t("common.car") })
+    );
   } catch (e) {
-    console.error(e);
+    showNotification(
+      "error",
+      t("toasts.error.failed_action", {
+        action: t("actions.delete"),
+        entity: t("common.car"),
+      })
+    );
   }
 };
 
@@ -342,13 +370,25 @@ const saveProfile = editedUser.handleSubmit(async (values) => {
 
     updateUserSummary(updates);
 
-    onCancel();
+    clearState();
+
+    showNotification(
+      "success",
+      t("toasts.success.updated", { entity: t("common.account") })
+    );
   } catch (e) {
     console.error(e);
+    showNotification(
+      "error",
+      t("toasts.error.failed_action", {
+        action: t("actions.save"),
+        entity: t("common.account"),
+      })
+    );
   }
 });
 
-const onCancel = () => {
+const clearState = () => {
   editedUser.resetForm();
   avatarFile.value = null;
   avatarPreview.value = user.value?.avatarUrl || null;
@@ -357,8 +397,20 @@ const onCancel = () => {
 const handleDeleteAccount = async () => {
   try {
     await deleteUser(user.value!.id);
+    showNotification(
+      "success",
+      t("toasts.success.deleted", { entity: t("common.account") })
+    );
+
     logout();
   } catch (e) {
+    showNotification(
+      "error",
+      t("toasts.error.failed_action", {
+        action: t("actions.delete"),
+        entity: t("common.account"),
+      })
+    );
     console.error(e);
   }
 };

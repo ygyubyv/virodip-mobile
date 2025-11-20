@@ -97,8 +97,12 @@ import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user";
 import { useParkingsStore } from "@/stores/parkings";
 import { createBooking } from "@/services/bookings";
+import { useNotification } from "@/composables/useNotification";
+import { useI18n } from "vue-i18n";
 
 const { coordinates } = useMap();
+const { showNotification } = useNotification();
+const { t } = useI18n();
 
 const parkingsStore = useParkingsStore();
 const { setParkings } = parkingsStore;
@@ -174,9 +178,26 @@ const handleSubmit = async (form: BookForm) => {
     const status = await createBooking(form);
 
     if (status !== 201) {
-      throw new Error("Failed create car");
+      throw new Error("Failed create booking");
     }
+
+    showNotification(
+      "success",
+      t("toasts.success.created", {
+        entity: t("common.booking"),
+      })
+    );
+
+    bookModalIsVisible.value = false;
   } catch (error) {
+    showNotification(
+      "error",
+      t("toasts.error.failed_action", {
+        action: t("actions.create"),
+        entity: t("common.booking"),
+      })
+    );
+
     console.error(error);
   }
 };

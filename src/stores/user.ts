@@ -8,8 +8,13 @@ import {
   getUserTransactions,
   getUserBookings,
 } from "@/services/user";
+import { useI18n } from "vue-i18n";
+import { useNotification } from "@/composables/useNotification";
 
 export const useUserStore = defineStore("user", () => {
+  const { t } = useI18n();
+  const { showNotification } = useNotification();
+
   const user = ref<User | null>(null);
 
   const setUser = async (id: string) => {
@@ -26,6 +31,13 @@ export const useUserStore = defineStore("user", () => {
 
       user.value = response;
     } catch (error) {
+      showNotification(
+        "error",
+        t("toasts.error.failed_action", {
+          action: t("actions.get"),
+          entity: t("common.account_data"),
+        })
+      );
       console.error(error);
     }
   };
@@ -44,6 +56,13 @@ export const useUserStore = defineStore("user", () => {
 
       user.value.cars = response;
     } catch (error) {
+      showNotification(
+        "error",
+        t("toasts.error.failed_action", {
+          action: t("actions.get"),
+          entity: t("common.cars"),
+        })
+      );
       console.error(error);
     }
   };
@@ -58,6 +77,13 @@ export const useUserStore = defineStore("user", () => {
 
       user.value!.subscription = response;
     } catch (error) {
+      showNotification(
+        "error",
+        t("toasts.error.failed_action", {
+          action: t("actions.get"),
+          entity: t("common.subscriptions"),
+        })
+      );
       console.error(error);
     }
   };
@@ -72,6 +98,13 @@ export const useUserStore = defineStore("user", () => {
 
       user.value!.transactions = response;
     } catch (error) {
+      showNotification(
+        "error",
+        t("toasts.error.failed_action", {
+          action: t("actions.get"),
+          entity: t("common.transactions"),
+        })
+      );
       console.error(error);
     }
   };
@@ -86,6 +119,13 @@ export const useUserStore = defineStore("user", () => {
 
       user.value!.bookings = response;
     } catch (error) {
+      showNotification(
+        "error",
+        t("toasts.error.failed_action", {
+          action: t("actions.get"),
+          entity: t("common.bookings"),
+        })
+      );
       console.error(error);
     }
   };

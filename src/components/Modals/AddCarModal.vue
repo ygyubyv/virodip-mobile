@@ -110,7 +110,6 @@ import {
   IonToolbar,
   IonButtons,
   IonButton,
-  IonTitle,
   IonContent,
   IonItem,
   IonLabel,
@@ -120,6 +119,8 @@ import { useValidateCar } from "@/composables/useValidateCar";
 import { storeToRefs } from "pinia";
 import { useUserStore } from "@/stores/user";
 import { createUserCar } from "@/services/user";
+import { useNotification } from "@/composables/useNotification";
+import { useI18n } from "vue-i18n";
 
 const props = defineProps<{ isOpen: boolean }>();
 const emit = defineEmits<{ (e: "close"): void }>();
@@ -127,6 +128,9 @@ const emit = defineEmits<{ (e: "close"): void }>();
 const userStore = useUserStore();
 const { setUserCars } = userStore;
 const { user } = storeToRefs(userStore);
+
+const { t } = useI18n();
+const { showNotification } = useNotification();
 
 const {
   meta,
@@ -146,16 +150,33 @@ const {
 const close = () => emit("close");
 
 const submit = handleSubmit(async (values) => {
-  await createUserCar(user.value!.id, {
-    number: values.number,
-    brand: values.brand,
-    model: values.model,
-    color: values.color,
-  });
+  try {
+    await createUserCar(user.value!.id, {
+      number: values.number,
+      brand: values.brand,
+      model: values.model,
+      color: values.color,
+    });
 
-  setUserCars(true);
-  resetForm();
-  close();
+    setUserCars(true);
+    resetForm();
+    close();
+
+    showNotification(
+      "success",
+      t("toasts.success.created", { entity: t("common.car") })
+    );
+  } catch (e) {
+    showNotification(
+      "error",
+      t("toasts.error.failed_action", {
+        action: t("actions.create"),
+        entity: t("common.car"),
+      })
+    );
+
+    console.error(e);
+  }
 });
 </script>
 
