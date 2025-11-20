@@ -8,9 +8,11 @@
     <ion-header>
       <ion-toolbar class="toolbar-bg">
         <ion-buttons slot="start">
-          <ion-button color="danger" @click="emit('close')">Cancel</ion-button>
+          <ion-button color="danger" @click="emit('close')">
+            {{ $t("buttons.cancel") }}
+          </ion-button>
         </ion-buttons>
-        <ion-title class="ion-text-center title-color">Book Parking</ion-title>
+
         <ion-buttons slot="end">
           <ion-button
             color="primary"
@@ -18,7 +20,7 @@
             :strong="true"
             :disabled="!meta.valid"
           >
-            Confirm
+            {{ $t("buttons.confirm") }}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -26,62 +28,68 @@
 
     <ion-content class="ion-padding content-bg">
       <div class="space-y-4">
-        <h2 class="text-lg font-semibold title-color">Parking Info</h2>
+        <h2 class="text-lg font-semibold title-color text-center">
+          {{ $t("modals.book_parking.title") }}
+        </h2>
 
         <div class="flex justify-between text-sm">
           <p class="font-medium text-color-step-600">
-            Station: {{ parking.name }}
+            {{ $t("common.station") }}: {{ parking.name }}
           </p>
           <p class="text-color-step-400">
-            Available Spots: {{ parking.availableSpots }}
+            {{ $t("parkings.available_spots") }}: {{ parking.availableSpots }}
           </p>
         </div>
 
-        <!-- Start -->
         <ion-item
           lines="none"
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.start }"
         >
-          <ion-label position="stacked" class="text-color">Start</ion-label>
+          <ion-label position="stacked" class="text-color">
+            {{ $t("forms.fields.start_time.label") }}
+          </ion-label>
           <ion-input
             v-model="start"
             v-bind="startAttrs"
             type="datetime-local"
             class="text-input-color"
+            :placeholder="$t('forms.fields.start_time.placeholder')"
           />
         </ion-item>
         <p v-if="errors.start" class="text-red-500 text-sm mt-1 ml-1">
           {{ errors.start }}
         </p>
 
-        <!-- End -->
         <ion-item
           lines="none"
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.end }"
         >
-          <ion-label position="stacked" class="text-color">End</ion-label>
+          <ion-label position="stacked" class="text-color">
+            {{ $t("forms.fields.end_time.label") }}
+          </ion-label>
           <ion-input
             v-model="end"
             v-bind="endAttrs"
             type="datetime-local"
             class="text-input-color"
+            :placeholder="$t('forms.fields.end_time.placeholder')"
           />
         </ion-item>
         <p v-if="errors.end" class="text-red-500 text-sm mt-1 ml-1">
           {{ errors.end }}
         </p>
 
-        <!-- Car -->
         <ion-item lines="none" class="rounded-xl input-bg">
-          <ion-label position="stacked" class="text-color"
-            >Select Car</ion-label
-          >
+          <ion-label position="stacked" class="text-color">
+            {{ $t("selects.labels.select_car") }}
+          </ion-label>
+
           <ion-select
             v-model="selectedCarId"
             interface="popover"
-            placeholder="Select a car"
+            :placeholder="$t('selects.labels.select_car')"
             class="custom-select"
           >
             <ion-select-option
@@ -94,13 +102,12 @@
           </ion-select>
         </ion-item>
 
-        <!-- Add Car -->
         <div
           class="flex items-center gap-1 cursor-pointer hover:underline text-sm add-car-text justify-end"
           @click="emit('addCar')"
         >
           <ion-icon :icon="addCircleOutline" />
-          <span>Add Car</span>
+          <span>{{ $t("buttons.add_car") }}</span>
         </div>
       </div>
     </ion-content>

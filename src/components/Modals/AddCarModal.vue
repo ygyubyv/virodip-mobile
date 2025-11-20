@@ -3,14 +3,14 @@
     <ion-header>
       <ion-toolbar class="toolbar-bg">
         <ion-buttons slot="start">
-          <ion-button color="danger" @click="close">Cancel</ion-button>
+          <ion-button color="danger" @click="close">
+            {{ $t("buttons.cancel") }}
+          </ion-button>
         </ion-buttons>
-
-        <ion-title class="ion-text-center title-color">Add Car</ion-title>
 
         <ion-buttons slot="end">
           <ion-button color="primary" :disabled="!meta.valid" @click="submit">
-            Submit
+            {{ $t("modals.add_car.submit_text") }}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -23,64 +23,77 @@
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.number }"
         >
-          <ion-label position="stacked" class="text-color">Number</ion-label>
+          <ion-label position="stacked" class="text-color">
+            {{ $t("forms.fields.number.label") }}
+          </ion-label>
+
           <ion-input
             v-bind="numberAttrs"
             v-model="number"
-            placeholder="Enter number"
+            :placeholder="$t('forms.fields.number.placeholder')"
           />
         </ion-item>
+
         <p v-if="errors.number" class="text-red-500 text-sm ml-1 -mt-1 mb-0">
           {{ errors.number }}
         </p>
 
-        <!-- Brand -->
         <ion-item
           lines="none"
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.brand }"
         >
-          <ion-label position="stacked" class="text-color">Brand</ion-label>
+          <ion-label position="stacked" class="text-color">
+            {{ $t("forms.fields.brand.label") }}
+          </ion-label>
+
           <ion-input
             v-bind="brandAttrs"
             v-model="brand"
-            placeholder="Enter brand"
+            :placeholder="$t('forms.fields.brand.placeholder')"
           />
         </ion-item>
+
         <p v-if="errors.brand" class="text-red-500 text-sm ml-1 -mt-1 mb-0">
           {{ errors.brand }}
         </p>
 
-        <!-- Model -->
         <ion-item
           lines="none"
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.model }"
         >
-          <ion-label position="stacked" class="text-color">Model</ion-label>
+          <ion-label position="stacked" class="text-color">
+            {{ $t("forms.fields.model.label") }}
+          </ion-label>
+
           <ion-input
             v-bind="modelAttrs"
             v-model="model"
-            placeholder="Enter model"
+            :placeholder="$t('forms.fields.model.placeholder')"
           />
         </ion-item>
+
         <p v-if="errors.model" class="text-red-500 text-sm ml-1 -mt-1 mb-0">
           {{ errors.model }}
         </p>
 
-        <!-- Color -->
         <ion-item
           lines="none"
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.color }"
         >
-          <ion-label position="stacked" class="text-color">Color</ion-label>
+          <ion-label position="stacked" class="text-color">
+            {{ $t("forms.fields.color.label") }}
+          </ion-label>
+
           <ion-input
             v-bind="colorAttrs"
             v-model="color"
-            placeholder="Enter color"
+            :placeholder="$t('forms.fields.color.placeholder')"
           />
         </ion-item>
+
         <p v-if="errors.color" class="text-red-500 text-sm ml-1 -mt-1 mb-0">
           {{ errors.color }}
         </p>
@@ -133,20 +146,16 @@ const {
 const close = () => emit("close");
 
 const submit = handleSubmit(async (values) => {
-  try {
-    await createUserCar(user.value!.id, {
-      number: values.number,
-      brand: values.brand,
-      model: values.model,
-      color: values.color,
-    });
+  await createUserCar(user.value!.id, {
+    number: values.number,
+    brand: values.brand,
+    model: values.model,
+    color: values.color,
+  });
 
-    setUserCars(true);
-    resetForm();
-    close();
-  } catch (error) {
-    console.error(error);
-  }
+  setUserCars(true);
+  resetForm();
+  close();
 });
 </script>
 

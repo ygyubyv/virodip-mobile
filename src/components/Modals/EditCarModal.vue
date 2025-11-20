@@ -3,14 +3,14 @@
     <ion-header>
       <ion-toolbar class="toolbar-bg">
         <ion-buttons slot="start">
-          <ion-button color="medium" @click="close">Cancel</ion-button>
+          <ion-button color="medium" @click="close">
+            {{ $t("buttons.cancel") }}
+          </ion-button>
         </ion-buttons>
-
-        <ion-title class="ion-text-center title-color"> Edit Car </ion-title>
 
         <ion-buttons slot="end">
           <ion-button color="primary" :disabled="!meta.valid" @click="submit">
-            Save
+            {{ $t("modals.edit_car.submit_text") }}
           </ion-button>
         </ion-buttons>
       </ion-toolbar>
@@ -23,8 +23,14 @@
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.number }"
         >
-          <ion-label position="stacked">Number</ion-label>
-          <ion-input v-bind="numberAttrs" v-model="number" />
+          <ion-label position="stacked">
+            {{ $t("forms.fields.number.label") }}
+          </ion-label>
+          <ion-input
+            v-bind="numberAttrs"
+            v-model="number"
+            :placeholder="$t('forms.fields.number.placeholder')"
+          />
         </ion-item>
 
         <ion-item
@@ -32,8 +38,14 @@
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.brand }"
         >
-          <ion-label position="stacked">Brand</ion-label>
-          <ion-input v-bind="brandAttrs" v-model="brand" />
+          <ion-label position="stacked">
+            {{ $t("forms.fields.brand.label") }}
+          </ion-label>
+          <ion-input
+            v-bind="brandAttrs"
+            v-model="brand"
+            :placeholder="$t('forms.fields.brand.placeholder')"
+          />
         </ion-item>
 
         <ion-item
@@ -41,8 +53,14 @@
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.model }"
         >
-          <ion-label position="stacked">Model</ion-label>
-          <ion-input v-bind="modelAttrs" v-model="model" />
+          <ion-label position="stacked">
+            {{ $t("forms.fields.model.label") }}
+          </ion-label>
+          <ion-input
+            v-bind="modelAttrs"
+            v-model="model"
+            :placeholder="$t('forms.fields.model.placeholder')"
+          />
         </ion-item>
 
         <ion-item
@@ -50,8 +68,14 @@
           class="rounded-xl input-bg"
           :class="{ 'ion-invalid': errors.color }"
         >
-          <ion-label position="stacked">Color</ion-label>
-          <ion-input v-bind="colorAttrs" v-model="color" />
+          <ion-label position="stacked">
+            {{ $t("forms.fields.color.label") }}
+          </ion-label>
+          <ion-input
+            v-bind="colorAttrs"
+            v-model="color"
+            :placeholder="$t('forms.fields.color.placeholder')"
+          />
         </ion-item>
       </div>
     </ion-content>
@@ -72,7 +96,6 @@ import {
   IonLabel,
   IonInput,
 } from "@ionic/vue";
-
 import { useValidateCar } from "@/composables/useValidateCar";
 import type { Car } from "@/types";
 

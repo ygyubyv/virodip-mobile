@@ -41,14 +41,20 @@
         </ion-row>
       </ion-grid>
 
-      <ion-list class="ion-margin-top">
+      <ion-list
+        class="ion-margin-top"
+        v-if="user?.transactions && user.transactions.length"
+      >
         <ion-list-header>
           <ion-label style="font-size: 1.2rem">{{
             $t("views.account.payments.recent_transactions")
           }}</ion-label>
         </ion-list-header>
 
-        <ion-item v-for="tx in transactions.slice(-5).reverse()" :key="tx.id">
+        <ion-item
+          v-for="tx in user.transactions.slice(-5).reverse()"
+          :key="tx.id"
+        >
           <ion-label>
             <h2>{{ formatDate(tx.date) }}</h2>
             <p>{{ tx.description }}</p>
@@ -96,7 +102,17 @@ import {
   IonNote,
 } from "@ionic/vue";
 
-import { transactions } from "@/constants";
 import { tiers } from "../data";
 import { formatDate } from "@/utils";
+import { useUserStore } from "@/stores/user";
+import { storeToRefs } from "pinia";
+import { onMounted } from "vue";
+
+const userStore = useUserStore();
+const { setUserTransactions } = userStore;
+const { user } = storeToRefs(userStore);
+
+onMounted(() => {
+  setUserTransactions();
+});
 </script>

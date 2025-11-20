@@ -1,5 +1,8 @@
 <template>
-  <base-layout page-default-back-link="/tabs/book" page-title="Account">
+  <base-layout
+    page-default-back-link="/tabs/book"
+    :page-title="$t('routes.account.default')"
+  >
     <div class="segment-container">
       <ion-segment
         :value="activeSegment"

@@ -1,12 +1,16 @@
 <template>
   <ion-alert
     :is-open="authModalIsVisible"
-    header="Authentication Required"
-    sub-header="You need to log in to continue"
-    message="Please log in with your account to access this feature."
+    :header="$t('modals.required_auth.title')"
+    :sub-header="$t('modals.required_auth.subtitle')"
+    :message="$t('modals.required_auth.message')"
     :buttons="[
-      { text: 'Cancel', role: 'cancel', cssClass: 'alert-cancel' },
-      { text: 'Login', cssClass: 'alert-submit', handler: login },
+      { text: $t('buttons.cancel'), role: 'cancel', cssClass: 'alert-cancel' },
+      {
+        text: $t('modals.required_auth.submit_text'),
+        cssClass: 'alert-submit',
+        handler: login,
+      },
     ]"
     css-class="custom-alert"
     @didDismiss="authModalIsVisible = false"

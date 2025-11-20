@@ -1,5 +1,5 @@
 <template>
-  <base-layout page-title="Book Parking">
+  <base-layout :page-title="$t('routes.reserve')">
     <AddCarModal
       v-if="addCarModalIsVisible"
       :is-open="addCarModalIsVisible"
@@ -25,25 +25,32 @@
         v-else
         class="flex items-center justify-center w-full h-full bg-gray-50 text-gray-500 text-center p-4"
       >
-        <p class="max-w-md mx-auto">Access</p>
+        <p class="max-w-md mx-auto">
+          {{ $t("map.location_access") }}
+        </p>
       </div>
     </div>
 
     <ion-card class="rounded-xl">
       <ion-card-header class="pb-0">
         <ion-toolbar>
-          <ion-title class="ion-text-start"> Nearby parkings </ion-title>
+          <ion-title class="ion-text-start">
+            {{ $t("parkings.nearby_parkings") }}
+          </ion-title>
 
           <ion-buttons slot="end">
             <ion-select
               v-model="selectedOption"
               interface="popover"
-              placeholder="Sort By"
+              :placeholder="$t('selects.labels.sort_by')"
             >
-              <ion-select-option value="distance">Distance</ion-select-option>
-              <ion-select-option value="spots"
-                >Available spots</ion-select-option
-              >
+              <ion-select-option value="distance">
+                {{ $t("selects.distance") }}
+              </ion-select-option>
+
+              <ion-select-option value="spots">
+                {{ $t("selects.available_spots") }}
+              </ion-select-option>
             </ion-select>
           </ion-buttons>
         </ion-toolbar>

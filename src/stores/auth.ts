@@ -6,9 +6,12 @@ import { Preferences } from "@capacitor/preferences";
 import { parseJwt } from "@/utils/auth/decodeJwt";
 import { IdTokenClaimsExtended } from "@/types";
 import { useUserStore } from "./user";
+import { useRouter } from "vue-router";
 
 export const useAuthStore = defineStore("auth", () => {
   const { setUser } = useUserStore();
+
+  const router = useRouter();
 
   const isAuthenticated = ref(false);
   const isInitialized = ref(false);
@@ -61,6 +64,8 @@ export const useAuthStore = defineStore("auth", () => {
 
     await Preferences.remove({ key: "access_token" });
     isAuthenticated.value = false;
+
+    router.replace("/");
   };
 
   return {

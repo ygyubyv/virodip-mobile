@@ -1,5 +1,8 @@
 <template>
-  <base-layout page-title="My parkings" page-default-back-link="/">
+  <base-layout
+    :page-title="$t('routes.my_parkings')"
+    page-default-back-link="/"
+  >
     <ion-grid>
       <ion-row>
         <ion-col size="12">
@@ -44,7 +47,7 @@
                   v-else
                   class="flex items-center justify-center h-[300px] bg-gray-50 text-gray-500 rounded-lg text-center"
                 >
-                  Access
+                  {{ $t("map.location_access") }}
                 </div>
               </div>
 
@@ -54,8 +57,7 @@
                   :key="booking.id"
                   :booking="booking"
                   @show-parking-on-map="showParkingOnMap"
-                >
-                </book-card>
+                />
               </template>
 
               <ion-item v-else>

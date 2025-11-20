@@ -43,7 +43,10 @@ import { i18n } from "./i18n";
 const app = createApp(App);
 const pinia = createPinia();
 
-app.use(IonicVue).use(router).use(pinia).use(i18n);
+app.use(IonicVue);
+app.use(router);
+app.use(pinia);
+app.use(i18n);
 
 router.isReady().then(() => {
   app.mount("#app");

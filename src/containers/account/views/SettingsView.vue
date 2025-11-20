@@ -19,8 +19,8 @@
       :is-open="deleteCarModalIsVisible"
       :title="$t('modals.delete_car.title')"
       :message="$t('modals.delete_car.message')"
-      confirm-text="Delete"
-      cancel-text="Cancel"
+      :confirm-text="$t('buttons.delete')"
+      :cancel-text="$t('buttons.cancel')"
       @confirm="confirmDeleteCar"
       @cancel="deleteCarModalIsVisible = false"
     />
@@ -30,8 +30,8 @@
       :is-open="deleteAccountModalIsVisible"
       :title="$t('modals.delete_account.title')"
       :message="$t('modals.delete_account.message')"
-      confirm-text="Delete"
-      cancel-text="Cancel"
+      :confirm-text="$t('buttons.delete')"
+      :cancel-text="$t('buttons.cancel')"
       @confirm="handleDeleteAccount"
       @cancel="deleteAccountModalIsVisible = false"
     />
@@ -162,7 +162,7 @@
             </ion-item>
           </ion-list>
 
-          <p v-else>{{ $t("cars.empty") }}</p>
+          <p v-else>{{ $t("cars.no_cars") }}</p>
 
           <ion-button expand="full" @click="addCarModalIsVisible = true">
             <ion-icon slot="start" :icon="addOutline" />

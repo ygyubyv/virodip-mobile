@@ -5,7 +5,7 @@
     </h3>
 
     <div v-if="coordinates" class="flex justify-between text-sm">
-      <span>Distance:</span>
+      <span>{{ $t("map.distance") }}:</span>
       <span>
         {{
           formatDistance(
@@ -21,12 +21,12 @@
     </div>
 
     <div class="flex justify-between text-sm">
-      <span>Available Spots:</span>
+      <span>{{ $t("parkings.available_spots") }}:</span>
       <span>{{ parking.availableSpots }}</span>
     </div>
 
     <div class="flex justify-between text-sm">
-      <span>Address:</span>
+      <span>{{ $t("parkings.address") }}:</span>
       <span class="text-right max-w-[160px]">{{ parking.address }}</span>
     </div>
 
@@ -38,7 +38,7 @@
         @click="() => emit('onBook', parking.id)"
       >
         <ion-icon :icon="addCircleOutline" slot="start" />
-        Book
+        {{ $t("buttons.book") }}
       </ion-button>
     </div>
   </ion-card>
@@ -60,28 +60,3 @@ const emit = defineEmits<{
   (e: "onBook", id: string): void;
 }>();
 </script>
-
-<style scoped>
-ion-card {
-  transition: background-color 0.3s ease, color 0.3s ease;
-  color: #111111 !important;
-}
-
-ion-card h3,
-ion-card p,
-ion-card span {
-  color: #111111 !important;
-}
-
-@media (prefers-color-scheme: dark) {
-  ion-card {
-    color: #f1f1f1 !important;
-  }
-
-  ion-card h3,
-  ion-card p,
-  ion-card span {
-    color: #f1f1f1 !important;
-  }
-}
-</style>

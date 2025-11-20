@@ -14,7 +14,7 @@
     <CustomMarker v-if="mePinIsVisible" :options="{ position: coordinates }">
       <div class="flex flex-col items-center">
         <div class="text-center text-gray-900 font-medium text-sm sm:text-base">
-          My location
+          {{ $t("map.my_location") }}
         </div>
         <img
           src="/user-pin.svg"
@@ -43,6 +43,7 @@
             >
               {{ parking.name }}
             </div>
+
             <img
               src="/car-pin.svg"
               alt="parking-pin"
@@ -58,8 +59,9 @@
                 <div class="font-semibold text-gray-900 mb-1">
                   {{ parking.name }}
                 </div>
+
                 <div class="mb-1">
-                  Distance
+                  {{ $t("map.distance") }}
                   <span class="font-medium">
                     {{
                       formatDistance(
@@ -73,10 +75,14 @@
                     }}
                   </span>
                 </div>
+
                 <div class="mb-2">
-                  Available Spots
-                  <span class="font-medium">{{ parking.availableSpots }}</span>
+                  {{ $t("map.available_spots") }}
+                  <span class="font-medium">
+                    {{ parking.availableSpots }}
+                  </span>
                 </div>
+
                 <ion-button
                   expand="full"
                   shape="round"
@@ -85,8 +91,9 @@
                   @click="
                     followMarker(coordinates, parking.coordinates, parking.name)
                   "
-                  >Follow</ion-button
                 >
+                  {{ $t("map.follow") }}
+                </ion-button>
               </div>
             </transition>
           </div>
@@ -98,13 +105,14 @@
         class="absolute bottom-0 left-0 w-full h-10 bg-white/90 flex items-center justify-between px-4 shadow-inner text-sm font-medium text-gray-900"
       >
         <div>{{ currentRoute.name }}</div>
+
         <div class="flex items-center gap-4">
           <div>{{ currentRoute.distance }} / {{ currentRoute.duration }}</div>
 
           <button
             @click="clearDestination()"
             class="w-5 h-5 text-gray-600 hover:text-gray-900 cursor-pointer text-lg bg-transparent border-none p-0"
-            title="Clear route"
+            :title="$t('map.clear_route')"
           >
             ✕
           </button>
@@ -117,7 +125,7 @@
 <script setup lang="ts">
 import { GoogleMap, CustomMarker, MarkerCluster } from "vue3-google-map";
 import { GOOGLE_MAPS_API_KEY } from "@/config";
-import type { Coordinates } from "@/types/index";
+import type { Coordinates } from "@/types";
 import { useMap } from "@/composables/useMap";
 import type { Parking } from "@/types";
 import { formatDistance, calculateDistance } from "@/utils";

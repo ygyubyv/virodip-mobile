@@ -2,49 +2,68 @@
   <ion-menu content-id="main-content" side="end">
     <ion-header>
       <ion-toolbar class="ion-text-end">
-        <ion-title>Menu</ion-title>
+        <ion-title>{{ $t("routes.main") }}</ion-title>
       </ion-toolbar>
     </ion-header>
 
     <ion-content>
       <ion-list>
         <ion-item @click="navigate('/tabs/book')">
-          <ion-label class="ion-text-end">Book parking</ion-label>
+          <ion-label class="ion-text-end">
+            {{ $t("routes.reserve") }}
+          </ion-label>
         </ion-item>
 
         <ion-item @click="navigate('/contact')">
-          <ion-label class="ion-text-end">Contact us</ion-label>
+          <ion-label class="ion-text-end">
+            {{ $t("views.contact.title") }}
+          </ion-label>
         </ion-item>
 
         <div v-if="isAuthenticated">
           <ion-item @click="navigate('/tabs/parkings')">
-            <ion-label class="ion-text-end">My parkings</ion-label>
+            <ion-label class="ion-text-end">
+              {{ $t("routes.my_parkings") }}
+            </ion-label>
           </ion-item>
 
           <ion-item @click="navigate('/account')">
-            <ion-label class="ion-text-end">Account</ion-label>
+            <ion-label class="ion-text-end">
+              {{ $t("routes.account.default") }}
+            </ion-label>
           </ion-item>
 
           <ion-item @click="navigate('/account/settings')">
-            <ion-label class="ion-text-end">Settings</ion-label>
+            <ion-label class="ion-text-end">
+              {{ $t("routes.account.settings") }}
+            </ion-label>
           </ion-item>
 
           <ion-item @click="logout">
-            <ion-label class="ion-text-end">Logout</ion-label>
+            <ion-label class="ion-text-end">
+              {{ $t("buttons.sign_out") }}
+            </ion-label>
           </ion-item>
         </div>
 
-        <div v-if="!isAuthenticated">
+        <div v-else>
           <ion-item @click="login">
-            <ion-label class="ion-text-end">Login</ion-label>
+            <ion-label class="ion-text-end">
+              {{ $t("buttons.sign_in") }}
+            </ion-label>
           </ion-item>
         </div>
+
+        <ion-item lines="none">
+          <language-picker />
+        </ion-item>
       </ion-list>
     </ion-content>
   </ion-menu>
 </template>
 
 <script setup lang="ts">
+import LanguagePicker from "./LanguagePicker.vue";
 import {
   IonMenu,
   IonList,
