@@ -303,6 +303,7 @@
   },
 
   "routes": {
+    "main": "Virodip",
     "my_parkings": "My Parkings",
     "reserve": "Reserve",
     "account": {

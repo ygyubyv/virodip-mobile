@@ -7,3 +7,6 @@ export * from "./date/timeUnitsInMs";
 export * from "./geolocation/calculateDistance";
 
 export * from "./file/uploadFileToAzure";
+
+export * from "./auth/decodeJwt";
+export * from "./auth/exchangeCodeForToken";

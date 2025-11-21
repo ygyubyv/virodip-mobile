@@ -5,12 +5,13 @@ const { clientId, tenantName, userFlow } = azureConfig;
 export const oauth2Config = {
   appId: clientId,
   authorizationBaseUrl: `https://${tenantName}.b2clogin.com/${tenantName}.onmicrosoft.com/${userFlow}/oauth2/v2.0/authorize`,
-  scope: "openid offline_access",
+  scope:
+    "openid offline_access https://dopii.onmicrosoft.com/627832f9-0ef9-4e36-a551-ebe6f1686e15/user_impersonation",
   redirectUrl: "msauth://com.dopii.virodip/Jv1bcrt54hsetFb2mo7KDMpuErU",
   responseType: "code",
   pkceEnabled: true,
   logsEnabled: true,
-  tokenExchangeUrl: `.../token`,
+  tokenExchangeUrl: `https://${tenantName}.b2clogin.com/${tenantName}.onmicrosoft.com/${userFlow}/oauth2/v2.0/token`,
   web: {
     appId: clientId,
     responseType: "token",
